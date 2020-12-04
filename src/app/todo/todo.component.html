@@ -1,0 +1,42 @@
+<div class="container">
+<form [formGroup]="todoForm" (ngSubmit)="add()">
+  <div class="addTodo">
+    <input class="task-input" type="text" formControlName="description" placeholder="Add a task..." />
+    <button type="submit">Add</button>
+  </div>
+  <p class="link" (click)="toggleAdditional()">Additional</p>
+  <div class="additional" *ngIf="showAdditional">
+    <label>Date: 
+      <input type="date" formControlName="date" />
+    </label>
+    <label>Priority:
+      <select formControlName="priority">
+        <option value="default">Default</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </label>
+  </div>
+</form>
+
+  <ul class="todoList">
+    <li *ngFor="let todo of todoList">
+      <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
+      <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+      <div class="settings-container">
+        <p *ngIf="todo.date" class="settings">{{todo.date}}</p>
+        <p *ngIf="todo.priority" class="settings">{{todo.priority}}</p>
+      </div>
+      <button (click)="delete(todo)">X</button>
+    </li>
+  </ul>
+
+<div *ngIf="!todoList.length">
+  <p>You have no tasks</p>
+</div>
+
+<div *ngIf="allTaskCompleted">
+  <p>You complete all tasks</p>
+</div> 
+</div>
