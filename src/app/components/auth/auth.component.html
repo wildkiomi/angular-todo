@@ -1,24 +1,24 @@
 <div class="container">
   <label>
-    Email: 
+    Email:
     <input type="email" placeholder="Email" [formControl]="email" required />
-    <div class="error" *ngIf="email.errors && email.errors.required && email.touched">
+    <div class="error" *ngIf="email.errors?.required && email.touched">
       Email is required.
     </div>
-    <div class="error" *ngIf="email.errors && email.errors.email && email.touched">
+    <div class="error" *ngIf="email.errors?.email && email.touched">
       Email is wrong.
     </div>
   </label>
   <label>
     Password:
     <input type="password" placeholder="Password" [formControl]="password" required />
-    <div class="error" *ngIf="password.errors && password.errors.minlength">
+    <div class="error" *ngIf="password.errors?.minlength">
       Password must be at least 6 characters long.
     </div>
-    <div class="error" *ngIf="password.errors && password.errors.required && password.touched">
+    <div class="error" *ngIf="password.errors?.required && password.touched">
       Password is required.
     </div>
   </label>
-  <button (click)="signUp()" type="submit" [disabled]="!email || !password">Sign Up</button>
   <button (click)="logIn()" type="submit" [disabled]="!email || !password">Log In</button>
+  <button (click)="signUp()" type="submit" [disabled]="!email || !password">Sign Up</button>
 </div>

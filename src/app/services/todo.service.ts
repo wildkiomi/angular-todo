@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Todo } from '../todo';
 
@@ -12,9 +13,9 @@ export class TodoService {
     private firestore: AngularFirestore,
   ) { }
 
-  firestoreCollection = this.firestore.collection("todoList");
+  public firestoreCollection: AngularFirestoreCollection<any> = this.firestore.collection('todoList');
 
-  getTodoList() { 
+  public getTodoList(): Observable<any> {
     return this.firestoreCollection.snapshotChanges()
       .pipe(
         map(actions => {
@@ -23,33 +24,23 @@ export class TodoService {
             const id = todo.id;
             const data = todo.data() as Todo;
             return { ...data, id };
-          })
+          });
         }
         )
-      )
-  };
-
-  complete(todo) {
-    return new Promise<void>(() => {
-      this.firestoreCollection.doc(todo.id)
-        .set({ completed: !todo.completed }, { merge: true });
-    });
-  };
-
-  add(todo): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-        this.firestoreCollection
-        .add(todo)
-        .then((response) => { console.log(response)}, err => reject(err));
-    })
+      );
   }
 
-  delete(todo): Promise<void> {
-    return new Promise<void>(() => {
-      this.firestoreCollection
-        .doc(todo.id).delete()
-        .then(response => console.log(response))
-    })
+  public complete(todo: Todo): void {
+    this.firestoreCollection.doc(todo.id)
+      .set({ completed: !todo.completed }, { merge: true });
+  }
+
+  public add(todo: Todo): void {
+    this.firestoreCollection.add(todo);
+  }
+
+  public delete(todo: Todo): void {
+    this.firestoreCollection.doc(todo.id).delete();
   }
 
 }

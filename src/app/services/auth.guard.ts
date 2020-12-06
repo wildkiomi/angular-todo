@@ -1,46 +1,34 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, OnDestroy {
-  userAuth: Subscription;
-  user;
+export class AuthGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {
-    this.getUser();
-  }
+  ) { }
 
-  getUser() {
-    this.userAuth = this.authService.isLoggedIn.subscribe((user) => {
-      
-      this.user = user;
-      console.log('first')
-    });
-  }
-
-  canActivate(
+  public canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.checkLogin();
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    return this.authService.getUser()
+      .pipe(
+        take(1),
+        map(user => {
+          if (user) {
+            return true;
+          } else {
+            return this.router.parseUrl('/login');
+          }
+        }
+        )
+      );
   }
 
-  checkLogin(): true|UrlTree {
-    console.log(this.authService.user)
-    if (!!this.authService.user) {
-      return true;
-    } else {
-      return this.router.parseUrl('/login');
-    }
-  }
-
-  ngOnDestroy() {
-  }
-  
 }

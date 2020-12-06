@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,11 +9,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthComponent {
 
-  email = new FormControl('', [
+  public email = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  password = new FormControl('', [
+  public password = new FormControl('', [
     Validators.required,
     Validators.minLength(6),
   ]);
@@ -22,11 +22,11 @@ export class AuthComponent {
     private authService: AuthService,
   ) { }
 
-  signUp() {
+  public signUp(): void {
     this.authService.signUp(this.email.value, this.password.value);
   }
 
-  logIn() {
+  public logIn(): void {
     this.authService.logIn(this.email.value, this.password.value);
   }
 

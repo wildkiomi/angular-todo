@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
@@ -7,17 +7,28 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  isLoggedIn: Subscription;
-  user;
+export class AppComponent implements OnInit {
+  public user: any;
 
   constructor(
     private authService: AuthService,
-  ) {
-    this.isLoggedIn = this.authService.isLoggedIn.subscribe(user => {this.user = user; console.log(user)});
+  ) {}
+
+  public ngOnInit(): void {
+    this.getUser();
   }
 
-  logOut() {
+  private getUser(): void {
+    this.authService.getUser().subscribe((user) => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  }
+
+  public logOut(): void {
     this.authService.logOut();
   }
 
