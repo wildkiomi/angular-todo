@@ -21,4 +21,5 @@
   </label>
   <button (click)="logIn()" type="submit" [disabled]="!email || !password">Log In</button>
   <button (click)="signUp()" type="submit" [disabled]="!email || !password">Sign Up</button>
+  <div *ngIf="error" class="error">{{error}}</div>
 </div>

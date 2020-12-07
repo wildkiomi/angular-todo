@@ -17,27 +17,22 @@ export class AuthService {
     return this.firebaseAuth.user;
   }
 
-  public signUp(email: string, password: string): void {
-    this.firebaseAuth
+  public signUp(email: string, password: string): Promise<any> {
+    return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((user) => {
+        localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
       })
-      .catch(err => {
-        console.log(err.message);
-      });
   }
 
-  public logIn(email: string, password: string): void {
-    this.firebaseAuth
+  public logIn(email: string, password: string): Promise<any> {
+    return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
       })
-      .catch(err => {
-        console.log(err.message);
-      });
   }
 
   public logOut(): void {

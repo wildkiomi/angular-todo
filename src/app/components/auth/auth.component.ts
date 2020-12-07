@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AuthComponent {
 
+  error: string;
+
   public email = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -23,11 +25,13 @@ export class AuthComponent {
   ) { }
 
   public signUp(): void {
-    this.authService.signUp(this.email.value, this.password.value);
+    this.authService.signUp(this.email.value, this.password.value)
+    .catch((error) => this.error = error.message);
   }
 
   public logIn(): void {
-    this.authService.logIn(this.email.value, this.password.value);
+    this.authService.logIn(this.email.value, this.password.value)
+    .catch((error) => this.error = error.message)
   }
 
 }

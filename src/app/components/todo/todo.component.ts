@@ -39,6 +39,9 @@ export class TodoComponent implements OnInit {
   }
 
   public add(): void {
+    if (this.todoForm.value.description === '') { 
+      return; 
+    }
     const todo = {...this.todoForm.value, completed: false };
     this.todoForm.reset();
     this.todoService.add(todo);
