@@ -1,7 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,8 @@ export class AuthService {
   public logIn(email: string, password: string): void {
     this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(({ user }) => {
+        localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
       })
       .catch(err => {
@@ -43,6 +44,7 @@ export class AuthService {
     this.firebaseAuth.signOut()
       .then(() => {
         this.router.navigateByUrl('login');
+        localStorage.removeItem('user');
       })
       .catch(err => {
         console.log(err.message);

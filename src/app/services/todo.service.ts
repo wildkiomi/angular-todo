@@ -16,16 +16,10 @@ export class TodoService {
 
   constructor(
     private firestore: AngularFirestore,
-    private authService: AuthService,
   ) {
-    this.authService.getUser().subscribe((user) => {
-        if (user) {
-          this.user = user;
-          this.firestore.collection('users').doc(user.uid).set({});
-          this.firestoreCollection = this.firestore.collection(`users/${user.uid}/todoList`);
-        }
-      }
-    )
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.firestore.collection('users').doc(this.user.uid).set({});
+    this.firestoreCollection = this.firestore.collection(`users/${this.user.uid}/todoList`);
   }
 
 
@@ -34,16 +28,13 @@ export class TodoService {
     .pipe(
       map((actions: any) => {
         return actions.map(p => {
-          console.log(p)
           const todo = p.payload.doc;
           const id = todo.id;
           const data = todo.data() as Todo;
           return { ...data, id };
         });
       }
-      ),
-      catchError((err) => of([]))
-    );
+    ));
   }
 
   public complete(todo: Todo): void {
