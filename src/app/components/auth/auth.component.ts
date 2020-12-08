@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AuthComponent {
 
-  error: string;
+  public error: string;
 
   public email = new FormControl('', [
     Validators.required,
@@ -31,7 +31,7 @@ export class AuthComponent {
 
   public logIn(): void {
     this.authService.logIn(this.email.value, this.password.value)
-    .catch((error) => this.error = error.message)
+    .catch((error) => this.error = error.message);
   }
 
 }

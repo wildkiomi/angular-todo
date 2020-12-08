@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Todo } from '../todo';
-import { AuthService } from './auth.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  user;
+  private user;
 
-  firestoreCollection;
+  private firestoreCollection: AngularFirestoreCollection;
 
   constructor(
     private firestore: AngularFirestore,
@@ -23,7 +22,7 @@ export class TodoService {
   }
 
 
-  public getTodoList(): Observable<any> | any {
+  public getTodoList(): Observable<Todo[]> {
     return this.firestoreCollection.snapshotChanges()
     .pipe(
       map((actions: any) => {

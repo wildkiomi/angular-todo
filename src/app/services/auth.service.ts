@@ -23,7 +23,7 @@ export class AuthService {
       .then((user) => {
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
-      })
+      });
   }
 
   public logIn(email: string, password: string): Promise<any> {
@@ -32,7 +32,7 @@ export class AuthService {
       .then(({ user }) => {
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
-      })
+      });
   }
 
   public logOut(): void {
