@@ -11,14 +11,14 @@ import { Todo } from '../../models/todo';
 export class TodoService {
 
   private firestoreCollection: AngularFirestoreCollection;
-  private todoList: Observable<Todo[]>;
+  private todoList$: Observable<Todo[]>;
 
   constructor(
     private firestore: AngularFirestore,
   ) {
     const user = JSON.parse(localStorage.getItem('user'));
     this.firestoreCollection = this.firestore.collection(`users/${user.uid}/todoList`);
-    this.todoList = this.firestoreCollection.snapshotChanges()
+    this.todoList$ = this.firestoreCollection.snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<firebase.firestore.DocumentData>[]) => {
         return actions.map(action => {
@@ -33,7 +33,7 @@ export class TodoService {
 
 
   public getTodoList(): Observable<Todo[]> {
-    return this.todoList;
+    return this.todoList$;
   }
 
   public complete(todo: Todo): void {
