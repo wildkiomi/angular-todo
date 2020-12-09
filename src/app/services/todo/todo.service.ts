@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import firebase from 'firebase/app';
 import { map} from 'rxjs/operators';
 import { Todo } from '../../models/todo';
 
@@ -9,31 +10,30 @@ import { Todo } from '../../models/todo';
 })
 export class TodoService {
 
-  private user;
-
   private firestoreCollection: AngularFirestoreCollection;
+  private todoList: Observable<Todo[]>;
 
   constructor(
     private firestore: AngularFirestore,
   ) {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.firestore.collection('users').doc(this.user.uid).set({});
-    this.firestoreCollection = this.firestore.collection(`users/${this.user.uid}/todoList`);
-  }
-
-
-  public getTodoList(): Observable<Todo[]> {
-    return this.firestoreCollection.snapshotChanges()
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.firestoreCollection = this.firestore.collection(`users/${user.uid}/todoList`);
+    this.todoList = this.firestoreCollection.snapshotChanges()
     .pipe(
-      map((actions: any) => {
-        return actions.map(p => {
-          const todo = p.payload.doc;
+      map((actions: DocumentChangeAction<firebase.firestore.DocumentData>[]) => {
+        return actions.map(action => {
+          const todo = action.payload.doc;
           const id = todo.id;
           const data = todo.data() as Todo;
           return { ...data, id };
         });
       }
     ));
+  }
+
+
+  public getTodoList(): Observable<Todo[]> {
+    return this.todoList;
   }
 
   public complete(todo: Todo): void {

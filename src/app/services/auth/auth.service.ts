@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,20 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  public getUser(): Observable<any> {
+  public getUser(): Observable<firebase.User | null> {
     return this.firebaseAuth.user;
   }
 
-  public signUp(email: string, password: string): Promise<any> {
+  public signUp(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then(({ user }) => {
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('todo');
       });
   }
 
-  public logIn(email: string, password: string): Promise<any> {
+  public logIn(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {

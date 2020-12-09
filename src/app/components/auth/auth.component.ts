@@ -15,6 +15,7 @@ export class AuthComponent {
     Validators.required,
     Validators.email,
   ]);
+  
   public password = new FormControl('', [
     Validators.required,
     Validators.minLength(6),

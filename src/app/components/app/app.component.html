@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li><h1>Todo app</h1></li>
-      <li *ngIf="user" class="logOut" (click)="logOut()">Log Out</li>
+      <li *ngIf="user$ | async" class="logOut" (click)="logOut()">Log Out</li>
     </ul>
   </nav>
 </header>

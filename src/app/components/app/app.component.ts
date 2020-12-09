@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -7,22 +9,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public user: any;
+  public user$: Observable<firebase.User | null>;
 
   constructor(
     private authService: AuthService,
   ) {
-    this.getUser();
-  }
-
-  private getUser(): void {
-    this.authService.getUser().subscribe((user) => {
-      if (user) {
-        this.user = user;
-      } else {
-        this.user = null;
-      }
-    });
+    this.user$ = this.authService.getUser();
   }
 
   public logOut(): void {

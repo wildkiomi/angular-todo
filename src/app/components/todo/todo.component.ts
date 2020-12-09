@@ -1,41 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo/todo.service';
 import { Todo } from 'src/app/models/todo';
+import { Observable } from 'rxjs';
+import { every, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent {
   public todoForm = new FormGroup({
     description: new FormControl(''),
     date: new FormControl(''),
     priority: new FormControl('default'),
   });
 
-  public todoList: Todo[] = [];
-  public showAdditional = false;
-  public allTaskCompleted = false;
+  public todoList$: Observable<Todo[]>;
+  public showAdditional: boolean;
+  public allTasksCompleted$: Observable<boolean>;
 
   constructor(
     private todoService: TodoService,
-  ) { }
-
-  public ngOnInit(): void {
-    this.getTodoList();
+  ) { 
+    this.showAdditional = false; 
+    this.todoList$ = this.todoService.getTodoList();
+    this.allTasksCompleted$ = this.todoList$.pipe(
+      map(tasks => tasks.every(task => task.completed))
+    )
   }
+
 
   public toggleAdditional(): void {
     this.showAdditional = !this.showAdditional;
-  }
-
-  private getTodoList(): void {
-    this.todoService.getTodoList().subscribe(todoList => {
-      this.todoList = todoList;
-      this.allTaskCompleted = todoList.length && todoList.every((task: Todo) => task.completed);
-    });
   }
 
   public add(): void {
@@ -47,7 +45,7 @@ export class TodoComponent implements OnInit {
     this.todoService.add(todo);
   }
 
-  public delete(todo): void {
+  public delete(todo: Todo): void {
     this.todoService.delete(todo);
   }
 
