@@ -11,6 +11,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AppComponent } from './components/app/app.component';
+import { TodoPriorityDirective } from './directives/priority/todo-priority.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AppComponent } from './components/app/app.component';
     TodoComponent,
     AuthComponent,
     PageNotFoundComponent,
+    TodoPriorityDirective,
   ],
   imports: [
     BrowserModule,

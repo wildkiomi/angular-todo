@@ -1,6 +1,9 @@
 .container {
-  min-width: 800px;
+  width: 800px;
   height: calc(100vh - 190px);
+  @media (max-width: 900px) {
+    width: 400px;
+  }
 }
 
 .link {
@@ -13,16 +16,11 @@
   justify-content: space-between;
 }
 
-.additional {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .todoList {
   list-style-type: none;
   padding: 0; 
   li {
+    margin: 8px 0;
     button {
       font-size: 20px;
       background-color: unset;
@@ -33,15 +31,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #11427d;
-    //max-width: 800px;
-    //border-radius: 5px;
-    //background-color: #183866;
-    //box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-    //color: white;
-    //padding: 10px;
+    box-shadow: 0px 1px 2px 0px rgba(158, 158, 158, 0.75);
     &:hover {
-      background-color: #c2d3ec;
+      background-color: #f6faff;
+    }
+    & > p {
+      margin: 0;
     }
     p {
       padding: 5px;
@@ -66,13 +61,27 @@
 }
 
 
-.task-input, .additional input, .additional select {
+.task-input {
   border: none;
   border-bottom: 2px solid #11427d;
   height: 30px;
   width: 80%;
   min-width: 250px;
   font-size: 16px;
+  margin-right: 10px;
+}
+
+.additional {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  input, select {
+    border: none;
+    border-bottom: 2px solid #11427d;
+    height: 30px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
 }
 
 button {
@@ -83,8 +92,4 @@ button {
   background-color: #112c52;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-ul button {
-  
 }
