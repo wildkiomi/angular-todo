@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Todo } from '../todo';
 import { map} from 'rxjs/operators';
+import { Todo } from '../../models/todo';
 
 @Injectable({
   providedIn: 'root'

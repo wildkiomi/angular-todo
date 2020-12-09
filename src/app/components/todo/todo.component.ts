@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TodoService } from 'src/app/services/todo.service';
-import { Todo } from 'src/app/todo';
+import { TodoService } from 'src/app/services/todo/todo.service';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-todo',
