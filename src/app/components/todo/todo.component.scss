@@ -1,0 +1,90 @@
+.container {
+  min-width: 800px;
+  height: calc(100vh - 190px);
+}
+
+.link {
+  color: #11427d;
+  cursor: pointer;
+}
+
+.addTodo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.additional {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todoList {
+  list-style-type: none;
+  padding: 0; 
+  li {
+    button {
+      font-size: 20px;
+      background-color: unset;
+      border: none;
+      color: black;
+      box-shadow: none;
+    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #11427d;
+    //max-width: 800px;
+    //border-radius: 5px;
+    //background-color: #183866;
+    //box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    //color: white;
+    //padding: 10px;
+    &:hover {
+      background-color: #c2d3ec;
+    }
+    p {
+      padding: 5px;
+      flex: 1;
+      &:first-child {
+        flex: 3;
+      }
+    }
+  }
+}
+
+.settings-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings {
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+  color: black;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+
+.task-input, .additional input, .additional select {
+  border: none;
+  border-bottom: 2px solid #11427d;
+  height: 30px;
+  width: 80%;
+  min-width: 250px;
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  height: 45px;
+  width: 110px;
+  border-radius: 5px;
+  background-color: #112c52;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+ul button {
+  
+}

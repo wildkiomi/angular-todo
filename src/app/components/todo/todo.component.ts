@@ -8,7 +8,7 @@ import { every, map, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css']
+  styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent {
   public todoForm = new FormGroup({
