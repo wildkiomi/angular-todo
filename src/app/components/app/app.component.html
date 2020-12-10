@@ -10,4 +10,9 @@
 <main>
   <router-outlet></router-outlet>
 </main>
-<footer></footer>
+<footer>
+  <div [ngSwitch]="theme">
+    <button *ngSwitchCase="'dark'" (click)="setLightTheme()">Set light theme</button>
+    <button *ngSwitchCase="'light'" (click)="setDarkTheme()">Set dark theme</button>
+  </div>
+</footer>
