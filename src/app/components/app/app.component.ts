@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { ThemeService } from 'src/app/services/theme/theme.service';
 import { Store } from '@ngrx/store';
 import { logOut } from 'src/app/state/auth/actions';
+import { IStore } from 'src/app/models/store';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private themeService: ThemeService,
-    private store: Store<{ user: {} }>
+    private store: Store<IStore>
   ) {
     this.user$ = this.authService.getUser();
   }

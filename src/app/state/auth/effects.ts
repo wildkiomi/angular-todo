@@ -46,7 +46,6 @@ export class AuthEffects {
   public logInSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(logInSuccess),
     mergeMap(({ payload }): any => {
-      localStorage.setItem('user', JSON.stringify(payload));
       return this.router.navigateByUrl('todo');
   })
   ), { dispatch: false });
@@ -68,7 +67,6 @@ export class AuthEffects {
   public logOutSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(logOutSuccess),
     mergeMap((): any => {
-      localStorage.removeItem('user');
       return this.router.navigateByUrl('login');
   })
   ), { dispatch: false });
