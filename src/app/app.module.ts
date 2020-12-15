@@ -12,6 +12,13 @@ import { TodoComponent } from './components/todo/todo.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AppComponent } from './components/app/app.component';
 import { TodoPriorityDirective } from './directives/priority/todo-priority.directive';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './state/todo/effects';
+import { StoreModule } from '@ngrx/store';
+import { todoReducer } from './state/todo/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { authReducer } from './state/auth/reducers';
+import { AuthEffects } from './state/auth/effects';
 
 @NgModule({
   declarations: [
@@ -28,6 +35,14 @@ import { TodoPriorityDirective } from './directives/priority/todo-priority.direc
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    StoreModule.forRoot({
+      auth: authReducer,
+      todoList: todoReducer,
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
+    EffectsModule.forRoot([TodoEffects, AuthEffects ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

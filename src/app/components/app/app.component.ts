@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ThemeService } from 'src/app/services/theme/theme.service';
+import { Store } from '@ngrx/store';
+import { logOut } from 'src/app/state/auth/actions';
 
 @Component({
   selector: 'app-root',
@@ -16,26 +18,27 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private themeService: ThemeService,
+    private store: Store<{ user: {} }>
   ) {
     this.user$ = this.authService.getUser();
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.setLightTheme();
   }
 
-  public setLightTheme():void {
-    this.theme = "light";
+  public setLightTheme(): void {
+    this.theme = 'light';
     this.themeService.setLightTheme();
   }
 
   public setDarkTheme(): void {
-    this.theme = "dark";
+    this.theme = 'dark';
     this.themeService.setDarkTheme();
   }
 
   public logOut(): void {
-    this.authService.logOut();
+    this.store.dispatch(logOut());
   }
 
 }

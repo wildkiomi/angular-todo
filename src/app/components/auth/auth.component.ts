@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { IStore } from 'src/app/models/store';
+import { logIn, signUp } from 'src/app/state/auth/actions';
 
 @Component({
   selector: 'app-auth',
@@ -22,17 +24,15 @@ export class AuthComponent {
   ]);
 
   constructor(
-    private authService: AuthService,
+    private store: Store<IStore>
   ) { }
 
   public signUp(): void {
-    this.authService.signUp(this.email.value, this.password.value)
-    .catch((error) => this.error = error.message);
+    this.store.dispatch(signUp({ payload: { email: this.email.value, password: this.password.value}}));
   }
 
   public logIn(): void {
-    this.authService.logIn(this.email.value, this.password.value)
-    .catch((error) => this.error = error.message);
+    this.store.dispatch(logIn({ payload: { email: this.email.value, password: this.password.value}}));
   }
 
 }

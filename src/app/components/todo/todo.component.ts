@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TodoService } from 'src/app/services/todo/todo.service';
 import { Todo } from 'src/app/models/todo';
 import { Observable } from 'rxjs';
-import { every, map, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { addTodo, completeTodo, deleteTodo, loadTodoList, TodoActions } from 'src/app/state/todo/actions';
+import { IStore } from 'src/app/models/store';
+import { selectCompletedTasks, selectTodoList } from 'src/app/state/todo/selectors';
 
 @Component({
   selector: 'app-todo',
@@ -17,20 +19,16 @@ export class TodoComponent {
     priority: new FormControl('default'),
   });
 
-  public todoList$: Observable<Todo[]>;
+  public todoList$: Observable<Todo[]> = this.store.select(selectTodoList);
   public showAdditional: boolean;
-  public allTasksCompleted$: Observable<boolean>;
+  public allTasksCompleted$: Observable<boolean> = this.store.select(selectCompletedTasks);
 
   constructor(
-    private todoService: TodoService,
-  ) { 
-    this.showAdditional = false; 
-    this.todoList$ = this.todoService.getTodoList();
-    this.allTasksCompleted$ = this.todoList$.pipe(
-      map(tasks => tasks.every(task => task.completed))
-    )
+    private store: Store<IStore>
+  ) {
+    this.showAdditional = false;
+    this.store.dispatch(loadTodoList());
   }
-
 
   public toggleAdditional(): void {
     this.showAdditional = !this.showAdditional;
@@ -42,15 +40,15 @@ export class TodoComponent {
     }
     const todo = { ...this.todoForm.value, completed: false };
     this.todoForm.reset();
-    this.todoService.add(todo);
+    this.store.dispatch(addTodo({ payload: todo }));
   }
 
   public delete(todo: Todo): void {
-    this.todoService.delete(todo);
+    this.store.dispatch(deleteTodo({ payload: todo }));
   }
 
   public complete(todo: Todo): void {
-    this.todoService.complete(todo);
+    this.store.dispatch(completeTodo({ payload: todo }));
   }
 
 }

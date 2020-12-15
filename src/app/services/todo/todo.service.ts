@@ -17,7 +17,7 @@ export class TodoService {
     private firestore: AngularFirestore,
   ) {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.firestoreCollection = this.firestore.collection(`users/${user.uid}/todoList`);
+    this.firestoreCollection = this.firestore.collection(`users/${user}/todoList`);
     this.todoList$ = this.firestoreCollection.snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<firebase.firestore.DocumentData>[]) => {
@@ -36,17 +36,17 @@ export class TodoService {
     return this.todoList$;
   }
 
-  public complete(todo: Todo): void {
-    this.firestoreCollection.doc(todo.id)
+  public complete(todo: Todo): Promise<void> {
+    return this.firestoreCollection.doc(todo.id)
       .set({ completed: !todo.completed }, { merge: true });
   }
 
-  public add(todo: Todo): void {
-    this.firestoreCollection.add(todo);
+  public add(todo: Todo): Promise<any> {
+    return this.firestoreCollection.add(todo);
   }
 
-  public delete(todo: Todo): void {
-    this.firestoreCollection.doc(todo.id).delete();
+  public delete(todo: Todo): Promise<any> {
+    return this.firestoreCollection.doc(todo.id).delete();
   }
 
 }
