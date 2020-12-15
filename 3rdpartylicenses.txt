@@ -240,6 +240,15 @@ Apache-2.0
 @firebase/webchannel-wrapper
 Apache-2.0
 
+@ngrx/effects
+MIT
+
+@ngrx/store
+MIT
+
+@ngrx/store-devtools
+MIT
+
 css-loader
 MIT
 Copyright JS Foundation and other contributors
