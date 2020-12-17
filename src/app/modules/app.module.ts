@@ -24,6 +24,7 @@ import { KanbanViewComponent } from '../components/todo/components/kanban-view/k
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MaterialModule } from './material.module';
+import { TodoListComponent } from '../components/todo/components/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MaterialModule } from './material.module';
     PageNotFoundComponent,
     TodoPriorityDirective,
     KanbanViewComponent,
+    TodoListComponent,
   ],
   imports: [
     BrowserModule,

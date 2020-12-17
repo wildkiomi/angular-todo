@@ -25,60 +25,6 @@
   color: orange;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0px; 
-  li {
-    margin: 8px 0;
-    button {
-      font-size: 20px;
-      background-color: unset;
-      border: none;
-      color: var(--text);
-      box-shadow: none;
-    }
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 1px 2px 0px rgba(158, 158, 158, 0.75);
-    &:hover {
-      background-color: var(--todo-hover);
-    }
-    & > p {
-      margin: 0;
-    }
-    p {
-      padding: 5px;
-      flex: 1;
-      &:first-child {
-        flex: 3;
-      }
-    }
-  }
-}
-
-.settings-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.settings {
-  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-  color: var(--text);
-  font-size: 12px;
-  margin-left: 5px;
-}
-
-button {
-  border: none;
-  height: 45px;
-  width: 110px;
-  border-radius: 5px;
-  background-color: var(--primary);
-  color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 mat-card {
   min-width: 230px;
   margin-bottom: 10px;
