@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ThemeService } from 'src/app/services/theme/theme.service';
 import { Store } from '@ngrx/store';
 import { logOut } from 'src/app/state/auth/actions';
 import { IStore } from 'src/app/models/store';
@@ -12,30 +11,18 @@ import { IStore } from 'src/app/models/store';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public user$: Observable<firebase.User | null>;
-  public theme: string;
 
   constructor(
     private authService: AuthService,
-    private themeService: ThemeService,
     private store: Store<IStore>
   ) {
     this.user$ = this.authService.getUser();
   }
 
-  public ngOnInit(): void {
-    this.setLightTheme();
-  }
-
-  public setLightTheme(): void {
-    this.theme = 'light';
-    this.themeService.setLightTheme();
-  }
-
-  public setDarkTheme(): void {
-    this.theme = 'dark';
-    this.themeService.setDarkTheme();
+  public changeTheme(theme: string): void {
+    (document.getElementById('themeAsset') as HTMLLinkElement).href = `assets/${theme}.css`;
   }
 
   public logOut(): void {

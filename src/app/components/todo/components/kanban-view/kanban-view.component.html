@@ -1,0 +1,55 @@
+<div class="container">
+  <mat-card class="block">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>priority_high</mat-icon>
+      <mat-card-title class="high">High</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+  <ul>
+    <li *ngFor="let todo of highPriorityTasks$ | async">
+      <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
+      <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+      <div class="settings-container">
+        <p *ngIf="todo.date" class="settings">{{todo.date.seconds*1000 | date}}</p>
+      </div>
+      <button (click)="delete(todo)">X</button>
+    </li>
+  </ul>
+</mat-card>
+
+  <mat-card class="block">
+    <mat-card-header>
+      <mat-card-title class="medium">Medium</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+  <ul>
+    <li *ngFor="let todo of mediumPriorityTasks$ | async">
+      <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
+      <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+      <div class="settings-container">
+        <p *ngIf="todo.date" class="settings">{{todo.date.seconds*1000 | date}}</p>
+      </div>
+      <button (click)="delete(todo)">X</button>
+    </li>
+  </ul>
+</mat-card>
+
+
+<mat-card class="block">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>low_priority</mat-icon>
+    <mat-card-title class="low">Low</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <ul>
+    <li *ngFor="let todo of lowPriorityTasks$ | async">
+      <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
+      <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+      <div class="settings-container">
+        <p *ngIf="todo.date" class="settings">{{todo.date.seconds*1000 | date}}</p>
+      </div>
+      <button (click)="delete(todo)">X</button>
+    </li>
+  </ul>
+</mat-card>
+</div>

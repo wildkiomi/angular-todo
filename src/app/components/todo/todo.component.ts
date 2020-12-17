@@ -18,6 +18,7 @@ export class TodoComponent {
     date: new FormControl(''),
     priority: new FormControl('default'),
   });
+  public view = new FormControl('inline');
 
   public todoList$: Observable<Todo[]> = this.store.select(selectTodoList);
   public showAdditional: boolean;

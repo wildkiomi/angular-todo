@@ -8,3 +8,19 @@ export const selectCompletedTasks = createSelector(
   selectTodoList,
   (state: Todo[]) => state.every(task => task.completed)
 );
+
+export const selectHighPriorityTasks = createSelector(
+  selectTodoList,
+  (state: Todo[]) => state.filter(task => task.priority === 'high')
+);
+
+export const selectMediumPriorityTasks = createSelector(
+  selectTodoList,
+  (state: Todo[]) => state.filter(task => task.priority === 'medium')
+);
+
+export const selectLowPriorityTasks = createSelector(
+  selectTodoList,
+  (state: Todo[]) => state.filter(task => task.priority === 'low')
+);
+

@@ -1,0 +1,19 @@
+<ul class="todoList">
+  <li *ngFor="let todo of todoList$ | async" [appTodoPriority]="todo.priority">
+    <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
+    <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+    <div class="settings-container">
+      <p *ngIf="todo.date" class="settings">{{todo.date.seconds*1000 | date}}</p>
+      
+    </div>
+    <button (click)="delete(todo)">X</button>
+  </li>
+</ul>
+
+<div *ngIf="!(todoList$ | async)?.length">
+<p>You have no tasks</p>
+</div>
+
+<div *ngIf="allTasksCompleted$ | async">
+<p>You completed all tasks</p>
+</div> 

@@ -1,18 +1,22 @@
-<header>
-  <nav>
-    <ul>
-      <li><h1>Todo app</h1></li>
-      <li *ngIf="user$ | async" class="logOut" (click)="logOut()">Log Out</li>
-    </ul>
-  </nav>
-</header>
-
+<mat-toolbar color="primary">
+  <h1>Todo app</h1>
+  <span class="spacer"></span>
+  <button mat-icon-button color="accent" [matMenuTriggerFor]="menu">
+    <mat-icon>format_color_fill</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="changeTheme('deeppurple-amber')">Deep Purple & Amber</button>
+    <button mat-menu-item (click)="changeTheme('indigo-pink')">Indigo & Pink</button>
+    <button mat-menu-item (click)="changeTheme('pink-bluegrey')">Pink & Blue-grey</button>
+    <button mat-menu-item (click)="changeTheme('purple-green')">Purple & Green</button>
+  </mat-menu>
+  <button mat-button *ngIf="user$ | async" (click)="logOut()">Log Out</button>
+</mat-toolbar>
 <main>
-  <router-outlet></router-outlet>
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>
-<footer>
-  <div [ngSwitch]="theme">
-    <button *ngSwitchCase="'dark'" (click)="setLightTheme()">Set light theme</button>
-    <button *ngSwitchCase="'light'" (click)="setDarkTheme()">Set dark theme</button>
-  </div>
-</footer>
+<mat-toolbar color="primary"></mat-toolbar>

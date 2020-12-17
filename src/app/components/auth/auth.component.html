@@ -1,25 +1,30 @@
-<div class="container">
-  <label>
-    Email:
-    <input type="email" placeholder="Email" [formControl]="email" required />
-    <div class="error" *ngIf="email.errors?.required && email.touched">
+<div class="wrapper">
+  <img src="../../../assets/home.svg" alt="girl" width="50%" height="50%"/>
+<mat-card class="container">
+  <mat-form-field>
+  <mat-label>Email:
+  </mat-label>
+    <input type="email" matInput placeholder="Email" [formControl]="email" required />
+    <mat-error *ngIf="email.errors?.required && email.touched">
       Email is required.
-    </div>
-    <div class="error" *ngIf="email.errors?.email && email.touched">
+    </mat-error>
+    <mat-error *ngIf="email.errors?.email && email.touched">
       Email is wrong.
-    </div>
-  </label>
-  <label>
-    Password:
-    <input type="password" placeholder="Password" [formControl]="password" required />
-    <div class="error" *ngIf="password.errors?.minlength">
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+  <mat-label>Password:</mat-label>
+    <input type="password" matInput placeholder="Password" [formControl]="password" required />
+    <mat-error  *ngIf="password.errors?.minlength">
       Password must be at least 6 characters long.
-    </div>
-    <div class="error" *ngIf="password.errors?.required && password.touched">
+    </mat-error>
+    <mat-error *ngIf="password.errors?.required && password.touched">
       Password is required.
-    </div>
-  </label>
-  <button (click)="logIn()" type="submit" [disabled]="!email || !password">Log In</button>
-  <button (click)="signUp()" type="submit" [disabled]="!email || !password">Sign Up</button>
-  <div *ngIf="error" class="error">{{error}}</div>
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="logIn()" type="submit" [disabled]="!email || !password">Log In</button>
+  <button mat-raised-button color="primary" (click)="signUp()" type="submit" [disabled]="!email || !password">Sign Up</button>
+  <div *ngIf="error" >{{error}}</div>
+</mat-card>
+<img src="../../../assets/working-late.svg" alt="girl" width="50%" height="50%"/>
 </div>

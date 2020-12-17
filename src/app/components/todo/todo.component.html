@@ -1,41 +1,51 @@
 <div class="container">
 <form [formGroup]="todoForm" (ngSubmit)="add()">
-  <div class="addTodo">
-    <input class="task-input" type="text" formControlName="description" placeholder="Add a task..." />
-    <button type="submit">Add</button>
+  <mat-form-field appearance="standard" class="task-input" >
+    <input matInput type="text" formControlName="description" placeholder="Add a task..." />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Add</button>
+  <mat-divider></mat-divider>
+  <div class="settings">
+    <p class="link" (click)="toggleAdditional()">Additional</p>
+    <mat-button-toggle-group [formControl]="view">
+      <mat-button-toggle value="inline">inline</mat-button-toggle>
+      <mat-button-toggle value="kanban">kanban</mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
-  <p class="link" (click)="toggleAdditional()">Additional</p>
+  <mat-divider></mat-divider>
   <div class="additional" *ngIf="showAdditional">
-    <label>Date: 
-      <input type="date" formControlName="date" />
-    </label>
-    <label>Priority:
-      <select formControlName="priority">
-        <option value="default">Default</option>
-        <option value="high">High</option>
-        <option value="medium">Medium</option>
-        <option value="low">Low</option>
-      </select>
-    </label>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input formControlName="date" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="default">Default</mat-option>
+          <mat-option value="high">High</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="low">Low</mat-option>
+        </mat-select>
+      </mat-form-field>
   </div>
+  <mat-divider></mat-divider>
 </form>
 
-  <ul class="todoList">
-    <li *ngFor="let todo of todoList$ | async" [appTodoPriority]="todo.priority">
-      <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
-      <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
-      <div class="settings-container">
-        <p *ngIf="todo.date" class="settings">{{todo.date}}</p>
-      </div>
-      <button (click)="delete(todo)">X</button>
-    </li>
-  </ul>
-
-<div *ngIf="!(todoList$ | async)?.length">
-  <p>You have no tasks</p>
+<div [ngSwitch]="view.value">
+  <app-inline-view 
+    *ngSwitchCase="'inline'"
+    [todoList$]="todoList$" 
+    [allTasksCompleted$]="allTasksCompleted$"
+    (deleteEvent)="delete($event)"
+    (completeEvent)="complete($event)"
+  ></app-inline-view>
+  <app-kanban-view
+    *ngSwitchCase="'kanban'"
+    (deleteEvent)="delete($event)"
+    (completeEvent)="complete($event)"
+  >
+  </app-kanban-view>
 </div>
-
-<div *ngIf="allTasksCompleted$ | async">
-  <p>You completed all tasks</p>
-</div> 
 </div>
