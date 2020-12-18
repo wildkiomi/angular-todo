@@ -8,9 +8,10 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent {
-  
+
   @Input() todoList$: Observable<Todo[]>;
-  
+  @Input() draggable: boolean;
+
   @Output() public deleteEvent = new EventEmitter<Todo>();
   @Output() public completeEvent = new EventEmitter<Todo>();
 

@@ -1,4 +1,4 @@
-<app-todo-list [todoList$]="todoList$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+<app-todo-list [todoList$]="todoList$" [draggable]="false" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
 </app-todo-list>
 
 <div *ngIf="!(todoList$ | async)?.length">

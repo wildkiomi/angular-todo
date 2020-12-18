@@ -5,6 +5,7 @@ export enum TodoActions {
   loadTodoList = '[Todo Component] Load TodoList',
   loadTodoListSuccess = '[TodoList API] TodoList Loaded Success',
   completeTodo = '[Todo Component] Complete Todo',
+  changePriority = '[Todo Component] Change Priority',
   addTodo = '[Todo Component] Add Todo',
   deleteTodo = '[Todo Component] Delete Todo',
 }
@@ -17,6 +18,10 @@ export const loadTodoListSuccess = createAction(
 export const completeTodo = createAction(
   TodoActions.completeTodo,
   props<{ payload: Todo }>()
+);
+export const changePriority = createAction(
+  TodoActions.changePriority,
+  props<{ todo: Todo, priority: string }>()
 );
 export const addTodo = createAction(
   TodoActions.addTodo,

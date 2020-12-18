@@ -1,13 +1,20 @@
 <ul class="todoList">
   <li *ngFor="let todo of todoList$ | async" [appTodoPriority]="todo.priority">
-    <input type="checkbox" [checked]="todo.completed" (click)="complete(todo)" />
-    <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
-    <div class="settings-container">
-      <p *ngIf="todo.date" class="settings">{{todo.date.seconds*1000 | date}}</p>
-      
-    </div>
-    <button mat-icon-button color="primary" (click)="delete(todo)">
-      <mat-icon>close</mat-icon>
-    </button>
+      <div *ngIf="draggable; else todoItem" cdkDrag [cdkDragData]="todo">
+        <ng-template *ngTemplateOutlet="todoItem"></ng-template>
+      </div>
+      <ng-template #todoItem>
+        <div class="todo-item">
+          <mat-checkbox [checked]="todo.completed" (click)="complete(todo)"></mat-checkbox>
+          <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+          <div class="chips-container">
+            <mat-chip *ngIf="todo.date" color="accent" selected>{{todo.date.seconds*1000 | date}}</mat-chip>
+          </div>
+          <mat-icon *ngIf="draggable" cdkDragHandle class="draggable-icon">drag_indicator</mat-icon>
+          <button mat-icon-button color="primary" (click)="delete(todo)">
+            <mat-icon>close</mat-icon>
+          </button>
+      </div>
+    </ng-template>
   </li>
 </ul>

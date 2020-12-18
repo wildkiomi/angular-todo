@@ -1,12 +1,21 @@
-<div class="container">
+<div class="container" cdkDropListGroup>
   <mat-card class="block">
     <mat-card-header>
       <mat-icon mat-card-avatar>priority_high</mat-icon>
       <mat-card-title class="high">High</mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
-    <app-todo-list [todoList$]="highPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+    <mat-card-content>
+    <app-todo-list 
+      [draggable]="true" 
+      id="high"
+      cdkDropList 
+      cdkDropListSortingDisabled 
+      [cdkDropListData]="highPriorityTasks$ | async"
+      (cdkDropListDropped)="drop($event)" 
+      [todoList$]="highPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
     </app-todo-list>
+  </mat-card-content>
   </mat-card>
 
   <mat-card class="block">
@@ -14,8 +23,17 @@
       <mat-card-title class="medium">Medium</mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
-    <app-todo-list [todoList$]="mediumPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+  <mat-card-content>
+    <app-todo-list 
+      [draggable]="true" 
+      id="medium"
+      cdkDropList 
+      cdkDropListSortingDisabled 
+      [cdkDropListData]="mediumPriorityTasks$ | async"
+      (cdkDropListDropped)="drop($event)" 
+      [todoList$]="mediumPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
     </app-todo-list>
+  </mat-card-content>
   </mat-card>
 
 
@@ -25,7 +43,16 @@
       <mat-card-title class="low">Low</mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
-    <app-todo-list [todoList$]="lowPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+  <mat-card-content>
+    <app-todo-list 
+      [draggable]="true" 
+      id="low"
+      cdkDropList 
+      cdkDropListSortingDisabled 
+      [cdkDropListData]="lowPriorityTasks$ | async"
+      (cdkDropListDropped)="drop($event)" 
+      [todoList$]="lowPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
     </app-todo-list>
+  </mat-card-content>
   </mat-card>
 </div>

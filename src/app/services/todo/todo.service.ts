@@ -47,6 +47,11 @@ export class TodoService {
       .set({ completed: !todo.completed }, { merge: true });
   }
 
+  public changePriority(todo: Todo, priority: string): Promise<void> {
+    return this.firestoreCollection.doc(todo.id)
+      .set({ priority }, { merge: true });
+  }
+
   public add(todo: Todo): Promise<any> {
     return this.firestoreCollection.add(todo);
   }
