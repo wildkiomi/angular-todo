@@ -36,16 +36,9 @@
 <div [ngSwitch]="view.value">
   <app-inline-view 
     *ngSwitchCase="'inline'"
-    [todoList$]="todoList$" 
-    [allTasksCompleted$]="allTasksCompleted$"
-    (deleteEvent)="delete($event)"
-    (completeEvent)="complete($event)"
   ></app-inline-view>
   <app-kanban-view
     *ngSwitchCase="'kanban'"
-    (deleteEvent)="delete($event)"
-    (completeEvent)="complete($event)"
-  >
-  </app-kanban-view>
+  ></app-kanban-view>
 </div>
 </div>

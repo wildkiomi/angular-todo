@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Todo } from 'src/app/models/todo';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { addTodo, completeTodo, deleteTodo, loadTodoList, TodoActions } from 'src/app/state/todo/actions';
+import { addTodo, loadTodoList } from 'src/app/state/todo/actions';
 import { IStore } from 'src/app/models/store';
-import { selectCompletedTasks, selectTodoList } from 'src/app/state/todo/selectors';
 
 @Component({
   selector: 'app-todo',
@@ -20,9 +17,7 @@ export class TodoComponent {
   });
   public view = new FormControl('inline');
 
-  public todoList$: Observable<Todo[]> = this.store.select(selectTodoList);
   public showAdditional: boolean;
-  public allTasksCompleted$: Observable<boolean> = this.store.select(selectCompletedTasks);
 
   constructor(
     private store: Store<IStore>
@@ -42,14 +37,6 @@ export class TodoComponent {
     const todo = { ...this.todoForm.value, completed: false };
     this.todoForm.reset();
     this.store.dispatch(addTodo({ payload: todo }));
-  }
-
-  public delete(todo: Todo): void {
-    this.store.dispatch(deleteTodo({ payload: todo }));
-  }
-
-  public complete(todo: Todo): void {
-    this.store.dispatch(completeTodo({ payload: todo }));
   }
 
 }

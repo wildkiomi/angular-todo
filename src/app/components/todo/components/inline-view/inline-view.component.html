@@ -1,10 +1,12 @@
-<app-todo-list [todoList$]="todoList$" [draggable]="false" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
-</app-todo-list>
+<app-todo-list 
+  [draggable]="false"
+  [todoList$]="todoList$"
+  ></app-todo-list>
 
-<div *ngIf="!(todoList$ | async)?.length">
+<div *ngIf="isTodoListEmpty$ | async">
   <p>You have no tasks</p>
 </div>
 
-<div *ngIf="allTasksCompleted$ | async">
+<div *ngIf="isAllTasksCompleted$ | async">
   <p>You completed all tasks</p>
 </div>

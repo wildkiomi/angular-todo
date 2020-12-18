@@ -14,10 +14,10 @@
   .draggable-icon {
     cursor: move;
   }
-  & > p {
+  & > input {
     margin: 0;
   }
-  p {
+  input {
     padding: 5px;
     flex: 1;
     &:first-child {

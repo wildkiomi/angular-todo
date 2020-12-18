@@ -56,6 +56,11 @@ export class TodoService {
     return this.firestoreCollection.add(todo);
   }
 
+  public edit(todo: Todo): Promise<any> {
+    return this.firestoreCollection.doc(todo.id)
+    .set({ description: todo.description }, { merge: true });
+  }
+
   public delete(todo: Todo): Promise<any> {
     return this.firestoreCollection.doc(todo.id).delete();
   }

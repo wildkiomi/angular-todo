@@ -7,6 +7,7 @@ export enum TodoActions {
   completeTodo = '[Todo Component] Complete Todo',
   changePriority = '[Todo Component] Change Priority',
   addTodo = '[Todo Component] Add Todo',
+  editTodo = '[Todo Component] Edit Todo',
   deleteTodo = '[Todo Component] Delete Todo',
 }
 
@@ -26,6 +27,10 @@ export const changePriority = createAction(
 export const addTodo = createAction(
   TodoActions.addTodo,
   props<{ payload: Todo }>()
+);
+export const editTodo = createAction(
+  TodoActions.editTodo,
+  props<{ todo: Todo }>()
 );
 export const deleteTodo = createAction(
   TodoActions.deleteTodo,

@@ -13,7 +13,7 @@
       cdkDropListSortingDisabled 
       [cdkDropListData]="highPriorityTasks$ | async"
       (cdkDropListDropped)="drop($event)" 
-      [todoList$]="highPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+      [todoList$]="highPriorityTasks$">
     </app-todo-list>
   </mat-card-content>
   </mat-card>
@@ -31,7 +31,7 @@
       cdkDropListSortingDisabled 
       [cdkDropListData]="mediumPriorityTasks$ | async"
       (cdkDropListDropped)="drop($event)" 
-      [todoList$]="mediumPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+      [todoList$]="mediumPriorityTasks$">
     </app-todo-list>
   </mat-card-content>
   </mat-card>
@@ -51,7 +51,7 @@
       cdkDropListSortingDisabled 
       [cdkDropListData]="lowPriorityTasks$ | async"
       (cdkDropListDropped)="drop($event)" 
-      [todoList$]="lowPriorityTasks$" (deleteEvent)="delete($event)" (completeEvent)="complete($event)">
+      [todoList$]="lowPriorityTasks$">
     </app-todo-list>
   </mat-card-content>
   </mat-card>

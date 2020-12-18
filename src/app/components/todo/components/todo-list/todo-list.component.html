@@ -6,7 +6,7 @@
       <ng-template #todoItem>
         <div class="todo-item">
           <mat-checkbox [checked]="todo.completed" (click)="complete(todo)"></mat-checkbox>
-          <p [style.text-decoration]="todo.completed ? 'line-through' : ''">{{todo.description}}</p>
+          <input matInput #description type="text" (change)="edit(todo, description.value)" [style.text-decoration]="todo.completed ? 'line-through' : ''" value={{todo.description}} />
           <div class="chips-container">
             <mat-chip *ngIf="todo.date" color="accent" selected>{{todo.date.seconds*1000 | date}}</mat-chip>
           </div>

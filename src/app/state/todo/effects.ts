@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, from } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { TodoService } from 'src/app/services/todo/todo.service';
-import { addTodo, changePriority, completeTodo, deleteTodo, loadTodoList, loadTodoListSuccess, TodoActions } from './actions';
+import { addTodo, changePriority, completeTodo, deleteTodo, editTodo, loadTodoList, loadTodoListSuccess, TodoActions } from './actions';
 
 @Injectable()
 export class TodoEffects {
@@ -26,6 +26,11 @@ export class TodoEffects {
   public addTodo$ = createEffect(() => this.actions$.pipe(
     ofType(addTodo),
     mergeMap((action: any) => from(this.todoService.add(action.payload)))
+  ), { dispatch: false });
+
+  public editTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(editTodo),
+    mergeMap((action: any) => from(this.todoService.edit(action.todo)))
   ), { dispatch: false });
 
   public completeTodo$ = createEffect(() => this.actions$.pipe(

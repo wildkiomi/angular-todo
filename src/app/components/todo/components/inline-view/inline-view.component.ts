@@ -1,6 +1,9 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { IStore } from 'src/app/models/store';
 import { Todo } from 'src/app/models/todo';
+import { isAllTasksCompleted, isTodoListEmpty, selectTodoList } from 'src/app/state/todo/selectors';
 
 @Component({
   selector: 'app-inline-view',
@@ -8,18 +11,13 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./inline-view.component.scss']
 })
 export class InlineViewComponent {
-  @Input() public todoList$: Observable<Todo[]>;
-  @Input() public allTasksCompleted$: Observable<boolean>;
 
-  @Output() public deleteEvent = new EventEmitter<Todo>();
-  @Output() public completeEvent = new EventEmitter<Todo>();
+  constructor(
+    private store: Store<IStore>,
+  ) {}
 
-  public delete(value: Todo): void {
-    this.deleteEvent.emit(value);
-  }
-
-  public complete(value: Todo): void {
-    this.completeEvent.emit(value);
-  }
+  public isAllTasksCompleted$: Observable<boolean> = this.store.select(isAllTasksCompleted);
+  public isTodoListEmpty$: Observable<boolean> = this.store.select(isTodoListEmpty);
+  public todoList$: Observable<Todo[]> = this.store.select(selectTodoList);
 
 }

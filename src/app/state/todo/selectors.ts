@@ -4,7 +4,12 @@ import { Todo } from 'src/app/models/todo';
 
 export const selectTodoList = (state: IStore) => state.todoList;
 
-export const selectCompletedTasks = createSelector(
+export const isTodoListEmpty = createSelector(
+  selectTodoList,
+  (state: Todo[]) => !state.length
+);
+
+export const isAllTasksCompleted = createSelector(
   selectTodoList,
   (state: Todo[]) => state.every(task => task.completed)
 );
