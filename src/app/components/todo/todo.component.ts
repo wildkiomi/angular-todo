@@ -12,7 +12,7 @@ import { IStore } from 'src/app/models/store';
 export class TodoComponent {
   public todoForm = new FormGroup({
     description: new FormControl(''),
-    date: new FormControl(''),
+    date: new FormControl(new Date()),
     priority: new FormControl('default'),
   });
   public view = new FormControl('inline');

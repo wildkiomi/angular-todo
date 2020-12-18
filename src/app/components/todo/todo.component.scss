@@ -9,18 +9,14 @@
   }
 }
 
-.link {
-  color: #11427d;
-  cursor: pointer;
-}
-
 .addTodo {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .task-input {
-  width: 80%;
+  width: 90%;
   min-width: 250px;
   margin-right: 10px;
 }

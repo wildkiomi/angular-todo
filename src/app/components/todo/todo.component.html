@@ -1,12 +1,16 @@
 <div class="container">
 <form [formGroup]="todoForm" (ngSubmit)="add()">
-  <mat-form-field appearance="standard" class="task-input" >
-    <input matInput type="text" formControlName="description" placeholder="Add a task..." />
-  </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Add</button>
+  <div class="addTodo">
+    <mat-form-field appearance="standard" class="task-input" >
+      <input matInput type="text" formControlName="description" placeholder="Add a task..." />
+    </mat-form-field>
+    <button mat-fab type="submit">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
   <mat-divider></mat-divider>
   <div class="settings">
-    <p class="link" (click)="toggleAdditional()">Additional</p>
+    <button mat-button color="accent" (click)="toggleAdditional()">Additional</button>
     <mat-button-toggle-group [formControl]="view">
       <mat-button-toggle value="inline">inline</mat-button-toggle>
       <mat-button-toggle value="kanban">kanban</mat-button-toggle>

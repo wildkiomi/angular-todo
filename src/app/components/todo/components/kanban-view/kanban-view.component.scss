@@ -11,6 +11,9 @@
   margin-right: 10px;
   width: 29%;
   min-height: 400px;
+  @media (max-width: 900px) {
+    width: 90%;
+  }
 }
 
 .high {
