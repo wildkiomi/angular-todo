@@ -19,10 +19,15 @@ export class AppComponent {
     private store: Store<IStore>
   ) {
     this.user$ = this.authService.getUser();
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      this.changeTheme(theme);
+    }
   }
 
   public changeTheme(theme: string): void {
     (document.getElementById('themeAsset') as HTMLLinkElement).href = `assets/${theme}.css`;
+    localStorage.setItem('theme', theme);
   }
 
   public logOut(): void {
