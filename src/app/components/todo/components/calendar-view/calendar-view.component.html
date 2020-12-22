@@ -1,5 +1,11 @@
 <div class="container">
   <h2>{{today | date : 'MMMM y'}}</h2>
+  <button mat-icon-button color="accent" (click)="changeMonth(-1)">
+    <mat-icon>fast_rewind</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" (click)="changeMonth(1)">
+    <mat-icon>fast_forward</mat-icon>
+  </button>
   <table>
     <thead>
       <th>Sun</th>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getDay, getDaysInMonth, getWeeksInMonth, startOfMonth, addDays } from 'date-fns';
+import { getDay, getDaysInMonth, getWeeksInMonth, startOfMonth, addDays, addMonths } from 'date-fns';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IStore } from 'src/app/models/store';
-import { Todo } from 'src/app/models/todo';
 import { selectTasksWithDate } from 'src/app/state/todo/selectors';
 
 @Component({
@@ -18,12 +17,14 @@ export class CalendarViewComponent {
 
   public days$: Observable<any>;
 
-  private tasks$: Observable<Todo[]> = this.store.select(selectTasksWithDate, this.today.getMonth());
-
   constructor(
     private store: Store<IStore>
   ) {
-    this.days$ = this.tasks$.pipe(
+    this.getDays();
+  }
+
+  private getDays(): void {
+    this.days$ = this.store.select(selectTasksWithDate, this.today.getMonth()).pipe(
       map(tasks => Array(getDaysInMonth(this.today)).fill(null).map((v, index) => (
         {
           day: addDays(startOfMonth(this.today), index),
@@ -51,6 +52,11 @@ export class CalendarViewComponent {
         })
       ),
     );
+  }
+
+  public changeMonth(value: number): void {
+    this.today = addMonths(this.today, value);
+    this.getDays();
   }
 
 }
