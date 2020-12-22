@@ -1,19 +1,19 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appTodoPriority]'
 })
-export class TodoPriorityDirective {
+export class TodoPriorityDirective implements OnInit{
 
-  @Input('appTodoPriority') priority: string;
-  
-  element: ElementRef;
+  @Input('appTodoPriority') private priority: string;
+
+  private element: ElementRef;
 
   constructor(element: ElementRef) {
     this.element = element;
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.element.nativeElement.style.borderLeft = `3px solid ${this.priority === 'high'
       ? 'red'
       : this.priority === 'medium'

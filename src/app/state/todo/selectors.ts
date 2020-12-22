@@ -29,3 +29,8 @@ export const selectLowPriorityTasks = createSelector(
   (state: Todo[]) => state.filter(task => task.priority === 'low')
 );
 
+export const selectTasksWithDate = createSelector(
+  selectTodoList,
+  (state: Todo[], month: number) => state.filter(task => new Date(task.date?.seconds * 1000).getMonth() === month)
+);
+

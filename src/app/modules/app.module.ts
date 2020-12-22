@@ -25,6 +25,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MaterialModule } from './material.module';
 import { TodoListComponent } from '../components/todo/components/todo-list/todo-list.component';
+import { CalendarViewComponent } from '../components/todo/components/calendar-view/calendar-view.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TodoListComponent } from '../components/todo/components/todo-list/todo-
     TodoPriorityDirective,
     KanbanViewComponent,
     TodoListComponent,
+    CalendarViewComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@
     <mat-button-toggle-group [formControl]="view">
       <mat-button-toggle value="inline">inline</mat-button-toggle>
       <mat-button-toggle value="kanban">kanban</mat-button-toggle>
+      <mat-button-toggle value="calendar">calendar</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <mat-divider></mat-divider>
@@ -44,5 +45,9 @@
   <app-kanban-view
     *ngSwitchCase="'kanban'"
   ></app-kanban-view>
+  <app-calendar-view
+   *ngSwitchCase="'calendar'"
+  >
+  </app-calendar-view>
 </div>
 </div>

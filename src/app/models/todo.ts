@@ -3,5 +3,5 @@ export interface Todo {
   description: string;
   completed: boolean;
   priority?: 'high' | 'medium' | 'low' | 'default';
-  date?: Date;
+  date?: { seconds: number, nanoseconds: number };
 }

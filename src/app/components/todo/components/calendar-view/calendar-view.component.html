@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>{{today | date : 'MMMM y'}}</h2>
+  <table>
+    <thead>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of days$ | async">
+        <td *ngFor="let day of row">
+          <mat-card [ngClass]="day.day === null ? 'emptyDay' : ''">
+            <mat-card-title>{{day.day | date : 'd'}}</mat-card-title>
+            <mat-card-content>
+              <div *ngIf="day.tasks.length">
+                <div  class="task" *ngFor="let task of day.tasks" [appTodoPriority]="task.priority">
+                  {{task.description}}
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
