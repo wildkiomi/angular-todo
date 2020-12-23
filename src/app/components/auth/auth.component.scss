@@ -5,9 +5,12 @@
   justify-content: center;
   align-items: center;  
   flex-wrap: wrap;
+  background-image: url(../../../assets/background.png);
+  background-size: 1000px;
+  background-repeat: repeat;
 }
 
-.container {
+.container { 
   display: flex;
   flex-direction: column;
   justify-content: space-between;

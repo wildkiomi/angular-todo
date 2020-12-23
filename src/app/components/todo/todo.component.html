@@ -10,7 +10,7 @@
   </div>
   <mat-divider></mat-divider>
   <div class="settings">
-    <button mat-button color="accent" (click)="toggleAdditional()">Additional</button>
+    <button mat-button color="accent" type="button" (click)="toggleAdditional()">Additional</button>
     <mat-button-toggle-group [formControl]="view">
       <mat-button-toggle value="inline">inline</mat-button-toggle>
       <mat-button-toggle value="kanban">kanban</mat-button-toggle>
